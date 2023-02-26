@@ -1,8 +1,13 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { appUseDispatch, appUseSelector } from './app/hooks'
+import { selectCount } from './app/features/counterSlice'
+import { counterActions } from './app/features/counterSlice'
 
 function App() {
+  const dispatch = appUseDispatch()
+  const counter = appUseSelector(selectCount)
+
   return (
     <div className="App">
       <div>
@@ -15,16 +20,16 @@ function App() {
         </a>
       </div>
       <h1>React + Redux Toolkit</h1>
-      <h2>0</h2>
+      <h2>{counter}</h2>
 
       <div className="card">
-        <button >
+        <button onClick={() => dispatch(counterActions.increment())}>
           Increment
         </button>
-        <button >
+        <button onClick={() => dispatch(counterActions.decrement())}>
           Decrement
         </button>
-        <button>
+        <button onClick={() => dispatch(counterActions.reset())}>
           Reset
         </button>
       </div>
